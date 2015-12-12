@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Random Location</title>
+    <script type="text/javascript">
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "https://www.random.org/geographic-coordinates/?num=1&dec=10&col=1&format=plain&rnd=new", true);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState < 4)
+                return;
+            var values = xmlhttp.responseText.split("\n");
+            var x = values[0] * 2 * Math.PI - Math.PI, y = Math.PI / 2 - Math.acos(values[1] * 2 - 1);
+            var rad2deg = function (arg) { return 360 * arg / (2 * Math.PI); }
+            var longitude = rad2deg(x).toFixed(6), latitude = rad2deg(y).toFixed(6);
+            window.location = "http://www.panoramio.com/map#lt=" + latitude + "&ln=" + longitude + "&z=8&k=2&a=1&tab=1&pl=all";
+        }
+        xmlhttp.send(null);
+    </script>
+</head>
+<body>
+    ...
+</body>
+</html>
